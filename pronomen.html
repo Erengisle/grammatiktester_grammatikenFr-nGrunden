@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pronomen – träna och repetera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pine:#10302a;
+  --pine-deep:#081a17;
+  --moss:#4e9174;
+  --chalk:#f3f5ef;
+  --sun:#ffc247;
+  --ink:#17211d;
+  --line:#d7ddd2;
+  --rail:280px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  margin:0;
+  background:var(--chalk);
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,serif;
+  font-size:18px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.ui{font-family:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif}
+em,i{font-style:italic}
+
+/* ---------- HERO ---------- */
+.hero{
+  background:var(--pine-deep);
+  color:var(--chalk);
+  padding:56px 24px 44px;
+  position:relative;
+  overflow:hidden;
+}
+.wall{
+  display:flex;flex-wrap:wrap;gap:6px;
+  max-width:980px;margin:0 auto 30px;
+  opacity:.5;
+}
+.wall span{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-size:14px;letter-spacing:.02em;
+  padding:4px 10px;border:1px solid rgba(243,245,239,.28);
+  border-radius:999px;
+}
+.wall span.lit{background:var(--sun);color:var(--pine-deep);border-color:var(--sun);font-weight:600}
+.hero-inner{max-width:980px;margin:0 auto}
+.hero h1{
+  font-size:clamp(52px,11vw,120px);
+  font-weight:800;line-height:.9;letter-spacing:-.03em;
+  margin:0 0 18px;
+}
+.hero p{max-width:52ch;margin:0;font-size:19px;color:rgba(243,245,239,.82)}
+
+/* ---------- PROGRESS BAR ---------- */
+.bar{
+  position:sticky;top:0;z-index:40;
+  background:var(--pine);color:var(--chalk);
+  border-bottom:1px solid rgba(243,245,239,.14);
+}
+.bar-inner{
+  max-width:1240px;margin:0 auto;
+  display:flex;align-items:center;gap:18px;
+  padding:10px 24px;
+  font-family:"Bricolage Grotesque",sans-serif;font-size:14px;
+}
+.bar-track{flex:1;height:8px;background:rgba(243,245,239,.16);border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;width:0;background:var(--sun);border-radius:999px;transition:width .35s ease}
+.bar button{
+  font-family:inherit;font-size:13px;
+  background:transparent;color:rgba(243,245,239,.75);
+  border:1px solid rgba(243,245,239,.3);border-radius:999px;
+  padding:5px 13px;cursor:pointer;
+}
+.bar button:hover{color:var(--pine-deep);background:var(--sun);border-color:var(--sun)}
+
+/* ---------- LAYOUT ---------- */
+.wrap{
+  max-width:1240px;margin:0 auto;padding:0 24px 90px;
+  display:grid;grid-template-columns:var(--rail) 1fr;gap:48px;
+  align-items:start;
+}
+nav.rail{position:sticky;top:64px;padding-top:40px}
+nav.rail ol{list-style:none;margin:0;padding:0}
+nav.rail a{
+  display:flex;align-items:center;gap:10px;
+  font-family:"Bricolage Grotesque",sans-serif;font-size:14.5px;
+  color:rgba(23,33,29,.66);text-decoration:none;
+  padding:7px 0;border-left:2px solid var(--line);padding-left:14px;
+}
+nav.rail a:hover{color:var(--pine)}
+nav.rail a.current{color:var(--pine);font-weight:600;border-left-color:var(--pine)}
+nav.rail a.done{border-left-color:var(--moss)}
+.dot{
+  width:16px;height:16px;flex:none;border-radius:50%;
+  border:1.5px solid var(--line);
+  display:grid;place-items:center;font-size:10px;color:#fff;
+}
+a.done .dot{background:var(--moss);border-color:var(--moss)}
+a.done .dot::after{content:"✓"}
+
+main{padding-top:40px;min-width:0}
+
+/* ---------- SECTIONS ---------- */
+section{margin-bottom:72px;scroll-margin-top:90px}
+.step{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-size:13px;font-weight:600;letter-spacing:.04em;
+  color:var(--moss);margin-bottom:6px;
+}
+section h2{
+  font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.02em;
+  line-height:1.08;margin:0 0 20px;color:var(--pine-deep);
+  max-width:20ch;
+}
+
+.info{
+  background:#fff;border:1px solid var(--line);
+  border-left:5px solid var(--pine);
+  border-radius:4px;padding:22px 26px;margin-bottom:26px;
+}
+.info p{margin:0 0 12px;max-width:70ch}
+.info p:last-child{margin-bottom:0}
+.info ul{margin:0 0 12px;padding-left:20px;max-width:70ch}
+.info li{margin-bottom:7px}
+.info li:last-child{margin-bottom:0}
+
+.ex-box{
+  background:rgba(78,145,116,.1);
+  border-radius:4px;padding:16px 20px;margin:16px 0 0;
+}
+.ex-box .lbl{
+  font-family:"Bricolage Grotesque",sans-serif;font-size:12.5px;
+  font-weight:600;color:var(--moss);margin-bottom:6px;
+}
+.ex-box div.line{margin-bottom:4px}
+.ex-box div.line:last-child{margin-bottom:0}
+.ex-box small{color:rgba(23,33,29,.6);font-size:15px}
+
+table{
+  width:100%;border-collapse:collapse;background:#fff;
+  border:1px solid var(--line);border-radius:4px;overflow:hidden;
+  margin-bottom:26px;font-size:17px;
+}
+th{
+  background:var(--pine);color:var(--chalk);text-align:left;
+  font-family:"Bricolage Grotesque",sans-serif;font-size:14px;font-weight:600;
+  padding:10px 16px;
+}
+td{padding:9px 16px;border-top:1px solid var(--line)}
+td:first-child{color:rgba(23,33,29,.6)}
+tbody tr:nth-child(even){background:rgba(243,245,239,.65)}
+
+/* ---------- ÖVNINGAR ---------- */
+.task-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:16px;margin:0 0 14px;
+}
+.task-head h3{
+  font-size:17px;font-weight:600;margin:0;color:var(--pine-deep);
+}
+.count{
+  font-family:"Bricolage Grotesque",sans-serif;font-size:13px;
+  color:rgba(23,33,29,.55);white-space:nowrap;
+}
+.tasks{list-style:none;margin:0;padding:0;counter-reset:t}
+.tasks li{
+  counter-increment:t;
+  background:#fff;border:1px solid var(--line);border-radius:4px;
+  padding:16px 20px 16px 54px;margin-bottom:10px;position:relative;
+}
+.tasks li::before{
+  content:counter(t);
+  position:absolute;left:18px;top:15px;
+  font-family:"Bricolage Grotesque",sans-serif;font-size:14px;font-weight:600;
+  color:var(--moss);
+}
+.tasks li.filled{border-color:var(--moss);background:rgba(78,145,116,.06)}
+.cue{
+  display:inline-block;background:var(--pine-deep);color:var(--chalk);
+  font-family:"Bricolage Grotesque",sans-serif;font-size:12.5px;font-weight:600;
+  padding:2px 9px;border-radius:3px;margin-right:9px;
+}
+.given{color:rgba(23,33,29,.62);font-size:16.5px;display:block;margin-top:6px}
+.arrow{display:block;margin-top:8px}
+input.blank{
+  font-family:"Source Serif 4",Georgia,serif;font-size:17px;
+  border:none;border-bottom:2px solid var(--line);background:transparent;
+  padding:1px 6px;min-width:110px;color:var(--pine-deep);
+}
+input.blank.wide{min-width:260px;width:min(100%,420px)}
+input.blank:focus{outline:none;border-bottom-color:var(--sun);background:rgba(255,194,71,.14)}
+input.blank:not(:placeholder-shown){border-bottom-color:var(--moss)}
+:focus-visible{outline:2px solid var(--sun);outline-offset:3px}
+
+footer{
+  background:var(--pine-deep);color:rgba(243,245,239,.75);
+  padding:34px 24px;font-family:"Bricolage Grotesque",sans-serif;font-size:14px;
+}
+footer div{max-width:1240px;margin:0 auto}
+
+@media (max-width:900px){
+  .wrap{grid-template-columns:1fr;gap:0;padding:0 18px 60px}
+  nav.rail{
+    position:sticky;top:52px;z-index:30;padding:10px 0;
+    background:var(--chalk);border-bottom:1px solid var(--line);
+    margin:0 -18px;padding-left:18px;padding-right:18px;
+  }
+  nav.rail ol{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+  nav.rail a{border-left:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;white-space:nowrap}
+  nav.rail a.current{background:var(--pine);color:var(--chalk);border-color:var(--pine)}
+  nav.rail a.done{border-color:var(--moss)}
+  .dot{width:13px;height:13px;font-size:8px}
+  main{padding-top:28px}
+  .hero{padding:36px 18px 30px}
+  body{font-size:17px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+  html{scroll-behavior:auto}
+}
+@media print{
+  .bar,nav.rail,.hero .wall{display:none}
+  body{background:#fff}
+  .wrap{display:block;padding:0}
+  section{page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div class="wall">
+      <span class="lit">jag</span><span class="lit">mig</span><span>du</span><span>dig</span>
+      <span class="lit">han</span><span>honom</span><span>hon</span><span class="lit">henne</span>
+      <span>den</span><span>det</span><span class="lit">vi</span><span>oss</span><span>ni</span>
+      <span class="lit">er</span><span>de</span><span>dem</span><span class="lit">sig</span>
+      <span>min</span><span>mitt</span><span class="lit">mina</span><span>sin</span><span>sitt</span>
+      <span class="lit">sina</span><span>vem</span><span>vilken</span><span class="lit">som</span>
+      <span>ingen</span><span>inget</span><span class="lit">alla</span><span>hela</span><span>varannan</span>
+    </div>
+    <h1>Pronomen</h1>
+    <p>Tolv steg genom svenskans pronomen. Läs rutan, gör de fyra övningarna, gå vidare. Ingen rättning – bara träning.</p>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="bar-inner">
+    <span class="ui" id="status">0 av 12 steg klara</span>
+    <div class="bar-track"><div class="bar-fill" id="fill"></div></div>
+    <button type="button" id="reset">Rensa alla svar</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<nav class="rail" aria-label="Innehåll">
+  <ol id="nav"></ol>
+</nav>
+
+<main>
+
+<!-- 1 -->
+<section id="s1" data-title="Subjekt och objekt">
+  <div class="step">Steg 1 av 12</div>
+  <h2>Personliga pronomen: subjektsform och objektsform</h2>
+  <div class="info">
+    <p>Pronomen är ord som ersätter substantiv. De personliga pronomenen har en form när de är <strong>subjekt</strong> (den som gör något) och en annan när de är <strong>objekt</strong> (den som något görs med).</p>
+    <p>Objektsformen används också efter preposition: <em>till mig, med oss, på dem</em>.</p>
+  </div>
+  <table>
+    <thead><tr><th>Subjektsform</th><th>Objektsform</th></tr></thead>
+    <tbody>
+      <tr><td>jag</td><td>mig</td></tr>
+      <tr><td>du</td><td>dig</td></tr>
+      <tr><td>han</td><td>honom</td></tr>
+      <tr><td>hon</td><td>henne</td></tr>
+      <tr><td>den, det</td><td>den, det</td></tr>
+      <tr><td>vi</td><td>oss</td></tr>
+      <tr><td>ni</td><td>er</td></tr>
+      <tr><td>de</td><td>dem</td></tr>
+    </tbody>
+  </table>
+  <div class="task-head">
+    <h3>Skriv rätt objektsform av pronomenet till vänster.</h3>
+    <span class="count" data-count="s1"></span>
+  </div>
+  <ol class="tasks">
+    <li><span class="cue">jag</span>Kan du vänta på <input class="blank" placeholder=" " aria-label="Svar"> en stund?</li>
+    <li><span class="cue">vi</span>Läraren delade ut nya böcker till <input class="blank" placeholder=" " aria-label="Svar">.</li>
+    <li><span class="cue">de</span>Jag ringde <input class="blank" placeholder=" " aria-label="Svar"> i går kväll.</li>
+    <li><span class="cue">ni</span>Vi träffar <input class="blank" placeholder=" " aria-label="Svar"> på fredag.</li>
+  </ol>
+</section>
+
+<!-- 2 -->
+<section id="s2" data-title="Den och det">
+  <div class="step">Steg 2 av 12</div>
+  <h2>Den och det</h2>
+  <div class="info">
+    <p>Orden <em>den</em> och <em>det</em> gör fyra olika jobb:</p>
+    <ul>
+      <li>De ersätter substantiv – <em>den</em> för en-ord, <em>det</em> för ett-ord.</li>
+      <li>Tillsammans med <em>här</em> eller <em>där</em> pekar de ut något: <em>den här bussen, det där huset</em>.</li>
+      <li><em>Det</em> är subjekt i opersonliga satser om väder och tid: <em>Det blåser. Det är sent.</em></li>
+      <li><em>Det</em> inleder korta svar: <em>Sover hon? Ja, det gör hon.</em></li>
+    </ul>
+    <div class="ex-box">
+      <div class="lbl">Exempel</div>
+      <div class="line">Cykeln är gammal. <em>Den</em> går sönder hela tiden.</div>
+      <div class="line">Kaffet är kallt. <em>Det</em> smakar inte gott.</div>
+    </div>
+  </div>
+  <div class="task-head">
+    <h3>Fyll i <em>den</em> eller <em>det</em>.</h3>
+    <span class="count" data-count="s2"></span>
+  </div>
+  <ol class="tasks">
+    <li>Tröjan var billig. <input class="blank" placeholder=" " aria-label="Svar"> kostade bara hundra kronor.</li>
+    <li>Snöar <input class="blank" placeholder=" " aria-label="Svar"> fortfarande? Nej, <input class="blank" placeholder=" " aria-label="Svar"> har slutat nu.</li>
+    <li><input class="blank" placeholder=" " aria-label="Svar"> där tåget går till Göteborg.</li>
+    <li>Förstår du uppgiften? Ja, <input class="blank" placeholder=" " aria-label="Svar"> gör jag.</li>
+  </ol>
+</section>
+
+<!-- 3 -->
+<section id="s3" data-title="Reflexiva pronomen">
+  <div class="step">Steg 3 av 12</div>
+  <h2>Reflexiva pronomen</h2>
+  <div class="info">
+    <p>Ett reflexivt pronomen pekar tillbaka på satsens subjekt: subjektet och objektet är samma person. Bara tredje person har en egen form – <em>sig</em>. I övriga fall använder man objektsformen.</p>
+    <div class="ex-box">
+      <div class="lbl">Jämför</div>
+      <div class="line">Han tvättar <em>sig</em>. <small>(samma person)</small></div>
+      <div class="line">Han tvättar <em>honom</em>. <small>(två olika personer)</small></div>
+    </div>
+    <p style="margin-top:14px">Vissa verb har alltid ett reflexivt pronomen med sig, till exempel <em>skynda sig, känna sig, sätta sig, lära sig</em>.</p>
+  </div>
+  <table>
+    <thead><tr><th>Personligt pronomen</th><th>Reflexivt pronomen</th></tr></thead>
+    <tbody>
+      <tr><td>jag</td><td>mig</td></tr>
+      <tr><td>du</td><td>dig</td></tr>
+      <tr><td>han, hon, den, det</td><td>sig</td></tr>
+      <tr><td>vi</td><td>oss</td></tr>
+      <tr><td>ni</td><td>er</td></tr>
+      <tr><td>de</td><td>sig</td></tr>
+    </tbody>
+  </table>
+  <div class="task-head">
+    <h3>Skriv om meningen med det nya subjektet.</h3>
+    <span class="count" data-count="s3"></span>
+  </div>
+  <ol class="tasks">
+    <li><span class="cue">de</span>Jag tvättar mig varje morgon.
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li><span class="cue">hon</span>Vi satte oss längst fram i salen.
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li><span class="cue">ni</span>De skyndade sig till bussen.
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li><span class="cue">jag</span>Han lärde sig svenska på ett år.
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+  </ol>
+</section>
+
+<!-- 4 -->
+<section id="s4" data-title="Possessiva pronomen">
+  <div class="step">Steg 4 av 12</div>
+  <h2>Possessiva pronomen</h2>
+  <div class="info">
+    <p>Possessiva pronomen talar om vem som äger något. Precis som adjektiven har de tre former, och formen styrs av <strong>det som ägs</strong> – inte av ägaren.</p>
+    <div class="ex-box">
+      <div class="lbl">Exempel</div>
+      <div class="line">Jag har en penna. Det är <em>min</em> penna.</div>
+      <div class="line">Jag har ett rum. Det är <em>mitt</em> rum.</div>
+      <div class="line">Jag har många böcker. Det är <em>mina</em> böcker.</div>
+    </div>
+  </div>
+  <table>
+    <thead><tr><th>Ägare</th><th>en-ord</th><th>ett-ord</th><th>plural</th></tr></thead>
+    <tbody>
+      <tr><td>jag</td><td>min</td><td>mitt</td><td>mina</td></tr>
+      <tr><td>du</td><td>din</td><td>ditt</td><td>dina</td></tr>
+      <tr><td>han</td><td>hans</td><td>hans</td><td>hans</td></tr>
+      <tr><td>hon</td><td>hennes</td><td>hennes</td><td>hennes</td></tr>
+      <tr><td>vi</td><td>vår</td><td>vårt</td><td>våra</td></tr>
+      <tr><td>ni</td><td>er</td><td>ert</td><td>era</td></tr>
+      <tr><td>de</td><td>deras</td><td>deras</td><td>deras</td></tr>
+    </tbody>
+  </table>
+  <div class="task-head">
+    <h3>Fyll i rätt possessivt pronomen.</h3>
+    <span class="count" data-count="s4"></span>
+  </div>
+  <ol class="tasks">
+    <li><span class="cue">jag</span>Var ligger <input class="blank" placeholder=" " aria-label="Svar"> mobil?</li>
+    <li><span class="cue">vi</span><input class="blank" placeholder=" " aria-label="Svar"> klassrum ligger på andra våningen.</li>
+    <li><span class="cue">du</span>Jag gillar <input class="blank" placeholder=" " aria-label="Svar"> nya skor.</li>
+    <li><span class="cue">de</span><input class="blank" placeholder=" " aria-label="Svar"> lägenhet ligger nära skolan.</li>
+  </ol>
+</section>
+
+<!-- 5 -->
+<section id="s5" data-title="Sin, sitt, sina">
+  <div class="step">Steg 5 av 12</div>
+  <h2>Sin, sitt, sina eller hans, hennes, deras</h2>
+  <div class="info">
+    <p><em>Sin, sitt, sina</em> är reflexiva possessiva pronomen. De syftar tillbaka på subjektet i samma sats och används <strong>bara som objekt</strong> – aldrig som subjekt.</p>
+    <div class="ex-box">
+      <div class="lbl">Jämför</div>
+      <div class="line">Anna hämtar <em>sin</em> bror. <small>(sin bror = Annas bror)</small></div>
+      <div class="line">Anna hämtar <em>hennes</em> bror. <small>(någon annans bror)</small></div>
+      <div class="line"><em>Hans</em> bror bor i Umeå. <small>(subjekt – här går det inte att skriva sin)</small></div>
+    </div>
+    <p style="margin-top:14px">Enkel kontroll: står ägaren först i satsen som subjekt, blir det <em>sin/sitt/sina</em>.</p>
+  </div>
+  <div class="task-head">
+    <h3>Välj mellan <em>sin/sitt/sina</em> och <em>hans/hennes/deras</em>.</h3>
+    <span class="count" data-count="s5"></span>
+  </div>
+  <ol class="tasks">
+    <li>Sara cyklar till skolan med <input class="blank" placeholder=" " aria-label="Svar"> lillasyster.</li>
+    <li>Adam glömde <input class="blank" placeholder=" " aria-label="Svar"> nycklar hemma på köksbordet.</li>
+    <li>Lisa och <input class="blank" placeholder=" " aria-label="Svar"> bror bor kvar i Malmö.</li>
+    <li>Familjen sålde <input class="blank" placeholder=" " aria-label="Svar"> gamla bil i somras.</li>
+  </ol>
+</section>
+
+<!-- 6 -->
+<section id="s6" data-title="Frågande pronomen">
+  <div class="step">Steg 6 av 12</div>
+  <h2>Interrogativa pronomen: frågeorden</h2>
+  <div class="info">
+    <p><em>Vem</em> och <em>vad</em> står alltid ensamma, utan substantiv efter sig. <em>Vem</em> används om en person i singular; i plural säger man <em>vilka</em>.</p>
+    <p><em>Vilken, vilket, vilka</em> kan stå både ensamma och tillsammans med ett substantiv, och de används om personer, djur och saker. <em>Vilken</em> till en-ord, <em>vilket</em> till ett-ord, <em>vilka</em> i plural.</p>
+    <div class="ex-box">
+      <div class="lbl">Exempel</div>
+      <div class="line"><em>Vem</em> ringde nyss?</div>
+      <div class="line"><em>Vad</em> heter du i efternamn?</div>
+      <div class="line"><em>Vilken</em> buss går till centrum?</div>
+      <div class="line"><em>Vilket</em> år är du född?</div>
+      <div class="line"><em>Vilka</em> språk talar ni hemma?</div>
+    </div>
+  </div>
+  <div class="task-head">
+    <h3>Fyll i rätt frågande pronomen.</h3>
+    <span class="count" data-count="s6"></span>
+  </div>
+  <ol class="tasks">
+    <li><input class="blank" placeholder=" " aria-label="Svar"> bor du tillsammans med?</li>
+    <li>I <input class="blank" placeholder=" " aria-label="Svar"> klass går din bror?</li>
+    <li><input class="blank" placeholder=" " aria-label="Svar"> länder har du besökt?</li>
+    <li><input class="blank" placeholder=" " aria-label="Svar"> ska du göra i helgen?</li>
+  </ol>
+</section>
+
+<!-- 7 -->
+<section id="s7" data-title="Utrop">
+  <div class="step">Steg 7 av 12</div>
+  <h2>Vilken dag! En sådan dag!</h2>
+  <div class="info">
+    <p>I utrop finns två mönster som betyder ungefär samma sak. <em>Vilken/vilket/vilka</em> står först i satsen, och <em>en sådan / ett sådant / sådana</em> fungerar likadant.</p>
+    <div class="ex-box">
+      <div class="lbl">Två sätt att säga samma sak</div>
+      <div class="line"><em>Vilken</em> fin dag! – <em>En sådan</em> fin dag! <small>(en-ord)</small></div>
+      <div class="line"><em>Vilket</em> konstigt väder! – <em>Ett sådant</em> konstigt väder! <small>(ett-ord)</small></div>
+      <div class="line"><em>Vilka</em> snälla grannar! – <em>Sådana</em> snälla grannar! <small>(plural)</small></div>
+    </div>
+  </div>
+  <div class="task-head">
+    <h3>Skriv utropet på båda sätten.</h3>
+    <span class="count" data-count="s7"></span>
+  </div>
+  <ol class="tasks">
+    <li><span class="cue">spännande / bok</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"> !</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"> !</span></li>
+    <li><span class="cue">gott / kaffe</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"> !</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"> !</span></li>
+    <li><span class="cue">trevliga / människor</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"> !</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"> !</span></li>
+    <li><span class="cue">lång / vinter</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"> !</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"> !</span></li>
+  </ol>
+</section>
+
+<!-- 8 -->
+<section id="s8" data-title="Relativa pronomen">
+  <div class="step">Steg 8 av 12</div>
+  <h2>Relativa pronomen: som</h2>
+  <div class="info">
+    <p>Ett relativt pronomen pekar tillbaka på ett eller flera ord i samma mening. Det vanligaste är <em>som</em>, och det fungerar för personer, djur och saker, i både singular och plural. <em>Som</em> kan vara både subjekt och objekt i sin sats.</p>
+    <div class="ex-box">
+      <div class="lbl">Exempel</div>
+      <div class="line">Jag har en granne. Han spelar trummor.
+        <br>→ Jag har en granne <em>som</em> spelar trummor.</div>
+      <div class="line" style="margin-top:8px">Vi såg en film. Jag glömde den direkt.
+        <br>→ Vi såg en film <em>som</em> jag glömde direkt.</div>
+    </div>
+  </div>
+  <div class="task-head">
+    <h3>Slå ihop meningarna med <em>som</em>.</h3>
+    <span class="count" data-count="s8"></span>
+  </div>
+  <ol class="tasks">
+    <li>Jag har en kompis. Han spelar innebandy.
+      <span class="given">Jag har en kompis <input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li>Vi bor i ett hus. Det byggdes på sextiotalet.
+      <span class="given">Vi bor i ett hus <input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li>Hon läste en bok. Den handlade om andra världskriget.
+      <span class="given">Hon läste en bok <input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li>Jag träffade en tjej på festen. Jag känner henne från högstadiet.
+      <span class="given">Jag träffade en tjej på festen <input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+  </ol>
+</section>
+
+<!-- 9 -->
+<section id="s9" data-title="Ingen / inte någon">
+  <div class="step">Steg 9 av 12</div>
+  <h2>Indefinita pronomen: ingen eller inte någon</h2>
+  <div class="info">
+    <p><em>Ingen</em> betyder samma sak som <em>inte någon</em>. Båda fungerar i huvudsatser som har ett enda verb.</p>
+    <ul>
+      <li><em>ingen</em> = inte någon (en-ord)</li>
+      <li><em>inget</em> = inte något (ett-ord)</li>
+      <li><em>inga</em> = inte några (plural)</li>
+    </ul>
+    <div class="ex-box">
+      <div class="lbl">Mönster</div>
+      <div class="line">Har du någon cykel? – Nej, jag har <em>ingen</em> cykel. / Nej, jag har <em>inte någon</em> cykel.</div>
+    </div>
+  </div>
+  <div class="task-head">
+    <h3>Svara på båda sätten, som i mönstret.</h3>
+    <span class="count" data-count="s9"></span>
+  </div>
+  <ol class="tasks">
+    <li>Har du någon cykel?
+      <span class="given">Nej, jag har <input class="blank" placeholder=" " aria-label="Svar"> cykel. / Nej, jag har <input class="blank" placeholder=" " aria-label="Svar"> cykel.</span></li>
+    <li>Har du något husdjur?
+      <span class="given">Nej, jag har <input class="blank" placeholder=" " aria-label="Svar"> husdjur. / Nej, jag har <input class="blank" placeholder=" " aria-label="Svar"> husdjur.</span></li>
+    <li>Har du några syskon?
+      <span class="given">Nej, jag har <input class="blank" placeholder=" " aria-label="Svar"> syskon. / Nej, jag har <input class="blank" placeholder=" " aria-label="Svar"> syskon.</span></li>
+    <li>Har du någon tid i dag?
+      <span class="given">Nej, jag har <input class="blank" placeholder=" " aria-label="Svar"> tid. / Nej, jag har <input class="blank" placeholder=" " aria-label="Svar"> tid.</span></li>
+  </ol>
+</section>
+
+<!-- 10 -->
+<section id="s10" data-title="Ingenting, ingenstans">
+  <div class="step">Steg 10 av 12</div>
+  <h2>Ingen, ingenting, ingenstans i bisats</h2>
+  <div class="info">
+    <p>I bisatser och när det finns två verb byter man ut <em>ingen</em> mot <em>inte … någon</em>.</p>
+    <table style="margin-top:14px;margin-bottom:0">
+      <thead><tr><th>Huvudsats</th><th>Bisats / två verb</th></tr></thead>
+      <tbody>
+        <tr><td>ingen</td><td>inte … någon</td></tr>
+        <tr><td>inget</td><td>inte … något</td></tr>
+        <tr><td>inga</td><td>inte … några</td></tr>
+        <tr><td>ingenting</td><td>inte … någonting</td></tr>
+        <tr><td>ingenstans</td><td>inte … någonstans</td></tr>
+      </tbody>
+    </table>
+    <div class="ex-box">
+      <div class="lbl">Exempel</div>
+      <div class="line">Hon har ingen bil. → Hon säger att hon <em>inte</em> har <em>någon</em> bil.</div>
+      <div class="line" style="margin-top:6px">I stället för <em>inte</em> kan man använda <em>aldrig</em>: Han säger att han <em>aldrig</em> har haft någon bil.</div>
+    </div>
+  </div>
+  <div class="task-head">
+    <h3>Skriv om med <em>inte … någon</em>.</h3>
+    <span class="count" data-count="s10"></span>
+  </div>
+  <ol class="tasks">
+    <li>Jag har ingenting att göra i kväll.
+      <span class="given">Jag säger att <input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li>Vi har inga läxor till i morgon.
+      <span class="given">Vi tycker att <input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li>Hon hittar ingenstans att parkera.
+      <span class="given">Hon säger att <input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li>Det finns inget kafé i byn.
+      <span class="given">Jag tror att <input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+  </ol>
+</section>
+
+<!-- 11 -->
+<section id="s11" data-title="All, allt, alla">
+  <div class="step">Steg 11 av 12</div>
+  <h2>All, allt, alla – hel, helt, hela</h2>
+  <div class="info">
+    <p><em>All</em> och <em>allt</em> används vid substantiv som inte kan räknas, ofta ämnesnamn som <em>mjölk, luft, socker</em> eller abstrakta ord som <em>glädje, hjälp</em>. <em>All</em> måste stå tillsammans med ett substantiv, medan <em>allt</em> också kan stå ensamt och då betyder <em>allting</em>.</p>
+    <p><em>Alla</em> används i plural, med substantiv som går att räkna.</p>
+    <p><em>Hel, helt, hela</em> används vid räkningsbara substantiv. Efter <em>hela</em> står substantivet i bestämd form, men utan fristående artikel (den, det, de).</p>
+    <div class="ex-box">
+      <div class="lbl">Exempel</div>
+      <div class="line"><em>All</em> mjölk är slut. – <em>Allt</em> socker är slut. – <em>Allt</em> gick bra.</div>
+      <div class="line"><em>Alla</em> elever är här i dag.</div>
+      <div class="line">Jag var sjuk <em>en hel</em> vecka. – Han bodde utomlands <em>ett helt</em> år. – Vi väntade <em>hela</em> dagen.</div>
+    </div>
+  </div>
+  <div class="task-head">
+    <h3>Fyll i <em>all, allt, alla</em> eller <em>hel, helt, hela</em>.</h3>
+    <span class="count" data-count="s11"></span>
+  </div>
+  <ol class="tasks">
+    <li><input class="blank" placeholder=" " aria-label="Svar"> mjölken är slut igen.</li>
+    <li><input class="blank" placeholder=" " aria-label="Svar"> elever ska vara med på studiedagen.</li>
+    <li>Har du gjort <input class="blank" placeholder=" " aria-label="Svar"> du kan?</li>
+    <li>Vi satt och pluggade <input class="blank" placeholder=" " aria-label="Svar"> kvällen.</li>
+  </ol>
+</section>
+
+<!-- 12 -->
+<section id="s12" data-title="Varannan, vartannat">
+  <div class="step">Steg 12 av 12</div>
+  <h2>Varannan och vartannat</h2>
+  <div class="info">
+    <p><em>Varannan</em> används med en-ord och <em>vartannat</em> med ett-ord. Substantivet står alltid i singular efter dem. Samma sak gäller <em>var tredje / vart tredje</em> och så vidare.</p>
+  </div>
+  <table>
+    <thead><tr><th>en-ord</th><th>ett-ord</th></tr></thead>
+    <tbody>
+      <tr><td>varannan dag, varannan vecka</td><td>vartannat år</td></tr>
+      <tr><td>var tredje månad</td><td>vart tredje år</td></tr>
+      <tr><td>var fjärde vecka</td><td>vart fjärde år</td></tr>
+      <tr><td>var tionde minut</td><td>vart tionde dygn</td></tr>
+    </tbody>
+  </table>
+  <div class="task-head">
+    <h3>Svara med <em>var/vart</em> + ordningstal.</h3>
+    <span class="count" data-count="s12"></span>
+  </div>
+  <ol class="tasks">
+    <li>Hur ofta går bussen? <span class="cue" style="margin-left:6px">10 minuter</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li>Hur ofta är det OS? <span class="cue" style="margin-left:6px">4 år</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li>Hur ofta har ni prov? <span class="cue" style="margin-left:6px">2 veckor</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+    <li>Hur ofta åker hon hem till Somalia? <span class="cue" style="margin-left:6px">3 år</span>
+      <span class="arrow"><input class="blank wide" placeholder=" " aria-label="Svar"></span></li>
+  </ol>
+</section>
+
+</main>
+</div>
+
+<footer><div>Pronomen – repetitionsmaterial för svenska som andraspråk. Exempel- och övningsmeningar är egna.</div></footer>
+
+<script>
+(function(){
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section'));
+  var nav = document.getElementById('nav');
+  var fill = document.getElementById('fill');
+  var status = document.getElementById('status');
+
+  // Bygg innehållsförteckningen
+  sections.forEach(function(sec, i){
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.href = '#' + sec.id;
+    a.dataset.for = sec.id;
+    a.innerHTML = '<span class="dot"></span><span>' + (i+1) + '. ' + sec.dataset.title + '</span>';
+    li.appendChild(a);
+    nav.appendChild(li);
+  });
+
+  function update(){
+    var doneSections = 0;
+    sections.forEach(function(sec){
+      var inputs = sec.querySelectorAll('input.blank');
+      var filled = 0;
+      inputs.forEach(function(inp){
+        var ok = inp.value.trim() !== '';
+        if(ok) filled++;
+        var li = inp.closest('li');
+        if(li){
+          var all = li.querySelectorAll('input.blank');
+          var allFilled = Array.prototype.every.call(all, function(x){ return x.value.trim() !== ''; });
+          li.classList.toggle('filled', allFilled);
+        }
+      });
+      var complete = filled === inputs.length && inputs.length > 0;
+      if(complete) doneSections++;
+      var counter = document.querySelector('[data-count="' + sec.id + '"]');
+      if(counter) counter.textContent = filled + ' / ' + inputs.length + ' ifyllda';
+      var link = document.querySelector('a[data-for="' + sec.id + '"]');
+      if(link) link.classList.toggle('done', complete);
+    });
+    fill.style.width = (doneSections / sections.length * 100) + '%';
+    status.textContent = doneSections === sections.length
+      ? 'Alla 12 steg klara'
+      : doneSections + ' av ' + sections.length + ' steg klara';
+  }
+
+  document.addEventListener('input', function(e){
+    if(e.target.classList.contains('blank')) update();
+  });
+
+  document.getElementById('reset').addEventListener('click', function(){
+    document.querySelectorAll('input.blank').forEach(function(i){ i.value = ''; });
+    update();
+  });
+
+  // Markera aktuellt avsnitt i menyn
+  if('IntersectionObserver' in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          document.querySelectorAll('nav.rail a').forEach(function(a){ a.classList.remove('current'); });
+          var link = document.querySelector('a[data-for="' + en.target.id + '"]');
+          if(link) link.classList.add('current');
+        }
+      });
+    }, { rootMargin: '-90px 0px -65% 0px' });
+    sections.forEach(function(s){ obs.observe(s); });
+  }
+
+  update();
+})();
+</script>
+</body>
+</html>
