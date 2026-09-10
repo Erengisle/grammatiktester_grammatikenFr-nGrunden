@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grammatiktester – grammatiken från grunden</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pine:#10302a;
+  --pine-deep:#081a17;
+  --moss:#4e9174;
+  --chalk:#f3f5ef;
+  --sun:#ffc247;
+  --ink:#17211d;
+  --line:#d7ddd2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--chalk);
+  color:var(--ink);
+  font-family:"Source Serif 4",Georgia,serif;
+  font-size:18px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,.ui{font-family:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif}
+
+.hero{
+  background:var(--pine-deep);
+  color:var(--chalk);
+  padding:64px 24px 56px;
+}
+.hero-inner{max-width:760px;margin:0 auto}
+.hero h1{
+  font-size:clamp(40px,8vw,72px);
+  font-weight:800;line-height:.95;letter-spacing:-.03em;
+  margin:0 0 16px;
+}
+.hero p{max-width:52ch;margin:0;font-size:19px;color:rgba(243,245,239,.82)}
+
+.wrap{max-width:760px;margin:0 auto;padding:48px 24px 90px}
+.cards{list-style:none;margin:0;padding:0;display:grid;gap:16px}
+.cards a{
+  display:block;
+  background:#fff;border:1px solid var(--line);border-left:5px solid var(--pine);
+  border-radius:4px;padding:22px 26px;
+  text-decoration:none;color:inherit;
+}
+.cards a:hover{border-left-color:var(--sun)}
+.cards h2{
+  font-family:"Bricolage Grotesque",sans-serif;
+  font-size:22px;font-weight:800;letter-spacing:-.01em;
+  margin:0 0 6px;color:var(--pine-deep);
+}
+.cards p{margin:0;color:rgba(23,33,29,.7);font-size:16.5px}
+
+footer{
+  background:var(--pine-deep);color:rgba(243,245,239,.75);
+  padding:34px 24px;font-family:"Bricolage Grotesque",sans-serif;font-size:14px;
+}
+footer div{max-width:760px;margin:0 auto}
+
+@media (max-width:600px){
+  .hero{padding:44px 18px 40px}
+  .wrap{padding:36px 18px 60px}
+  body{font-size:17px}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <h1>Grammatiken från grunden</h1>
+    <p>Grammatiktester för svenska som andraspråk. Välj ett område nedan och öva.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <ul class="cards">
+    <li><a href="pronomen.html">
+      <h2>Pronomen</h2>
+      <p>Tolv steg genom svenskans pronomen – personliga, possessiva, reflexiva, frågande och fler.</p>
+    </a></li>
+  </ul>
+</div>
+
+<footer><div>Grammatiktester – repetitionsmaterial för svenska som andraspråk.</div></footer>
+
+</body>
+</html>
